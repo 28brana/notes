@@ -7,7 +7,7 @@ My personal study notes, organized by subject. Each subject has its own folder w
 | Subject | Description | Notes |
 |---|---|---|
 | [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 1 |
-| [Computer Networks](computer-networks/README.md) | How data moves across networks: models, protocols, addressing | 1 |
+| [Computer Networks](computer-networks/README.md) | How data moves across networks: models, protocols, addressing | 2 |
 
 ## Repository structure
 
