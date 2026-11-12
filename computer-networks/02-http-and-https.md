@@ -219,6 +219,7 @@ Root CA (pre-installed in OS/browser)
 - Server must send the **intermediate cert** too — missing intermediate = works in Chrome, fails in curl/mobile/Node.
 - **Let's Encrypt** gives free certs (90 days, auto-renew). Wildcard cert `*.example.com` covers all one-level subdomains.
 - More on SSL setup → [08 · Production](08-production-networking.md)
+- Where TLS fits in the full page-load flow → [What happens when you type a URL](deep-dives/what-happens-when-you-type-a-url.md) (step ⑥)
 
 ---
 

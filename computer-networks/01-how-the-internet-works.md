@@ -148,6 +148,8 @@ Browser cache → OS cache (/etc/hosts too) → Recursive resolver
 
 That one answer touches DNS, TCP, TLS, HTTP and rendering — interviewers love it because they can go deep on any step.
 
+👉 Step-by-step with diagrams (HSTS, DNS, TCP, TLS/SSL handshake, certificate checks, rendering): [Full browser → website flow](deep-dives/what-happens-when-you-type-a-url.md)
+
 ---
 
 ## 8. OSI and TCP/IP models (conceptual)

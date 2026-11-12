@@ -27,12 +27,13 @@ All questions in one place: [questions/README.md](questions/README.md)
 
 More theory-heavy; good to skim, rarely asked in depth for developer roles.
 
+- [What happens when you type a URL — full flow](deep-dives/what-happens-when-you-type-a-url.md) — URL parsing, HSTS, DNS, TCP, TLS/SSL, server, rendering ⭐
 - [OSI & TCP/IP models](deep-dives/osi-and-tcp-ip-models.md)
 - [IP addressing & subnetting](deep-dives/ip-addressing-and-subnetting.md) — useful for AWS VPC/CIDR
 
 ## Top 10 questions to prepare first
 
-1. What happens when you type a URL and press Enter? → [01](01-how-the-internet-works.md)
+1. What happens when you type a URL and press Enter? → [01](01-how-the-internet-works.md) · [full flow](deep-dives/what-happens-when-you-type-a-url.md)
 2. HTTP vs HTTPS, and how does the TLS handshake work? → [02](02-http-and-https.md)
 3. What is CORS and why does a preflight request happen? → [03](03-browser-networking.md)
 4. Session vs JWT authentication — which and why? → [06](06-auth-and-security.md)
