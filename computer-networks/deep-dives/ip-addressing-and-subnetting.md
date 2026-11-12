@@ -1,10 +1,5 @@
 # IP Addressing & Subnetting
-
-> **Subject:** Computer Networks  
-> **Status:** ✅ done  
-> **Last reviewed:** 2026-10-29
-
-[← Back to Computer Networks](README.md)
+[← Back to Computer Networks](../README.md)
 
 ## Overview
 

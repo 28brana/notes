@@ -7,7 +7,7 @@ My personal study notes, organized by subject. Each subject has its own folder w
 | Subject | Description | Notes |
 |---|---|---|
 | [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 1 |
-| [Computer Networks](computer-networks/README.md) | How data moves across networks: models, protocols, addressing | 2 |
+| [Computer Networks](computer-networks/README.md) | Networking for full stack developers: HTTP, browser, APIs, auth, deployment, debugging | 9 + Q&A |
 
 ## Repository structure
 
@@ -22,7 +22,9 @@ notes/
 │   └── assets/                ← images/diagrams for this subject
 └── computer-networks/
     ├── README.md
-    ├── 01-osi-and-tcp-ip-models.md
+    ├── 01-how-the-internet-works.md … 09-troubleshooting-and-performance.md
+    ├── questions/                 ← interview Q&A, one file per topic
+    ├── deep-dives/                ← optional theory (OSI, subnetting)
     └── assets/
 ```
 

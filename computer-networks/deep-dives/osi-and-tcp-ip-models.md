@@ -4,7 +4,7 @@
 > **Status:** ✅ done  
 > **Last reviewed:** 2026-10-29
 
-[← Back to Computer Networks](README.md)
+[← Back to Computer Networks](../README.md)
 
 ## Overview
 
