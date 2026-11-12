@@ -27,7 +27,7 @@ All questions in one place: [questions/README.md](questions/README.md)
 
 More theory-heavy; good to skim, rarely asked in depth for developer roles.
 
-- [What happens when you type a URL — full flow](deep-dives/what-happens-when-you-type-a-url.md) — URL parsing, HSTS, DNS, TCP, TLS/SSL, server, rendering ⭐
+- [What happens when you type a URL — full flow](deep-dives/what-happens-when-you-type-a-url.md) — URL parsing, HSTS, DNS, TCP, TLS/SSL, server, rendering, client-side vs server-side (CSR/SSR/SSG) ⭐
 - [OSI & TCP/IP models](deep-dives/osi-and-tcp-ip-models.md)
 - [IP addressing & subnetting](deep-dives/ip-addressing-and-subnetting.md) — useful for AWS VPC/CIDR
 

@@ -325,6 +325,100 @@ CSS bytes  → CSSOM tree ─────────┘     (visible     (size 
 
 ---
 
+## Client-side vs server-side — are they part of networking?
+
+**Short answer: not exactly.** "Client-side" and "server-side" describe **where code runs**. Networking is **how the two sides talk** (DNS, TCP, TLS, HTTP). But the two are closely linked: where you run code decides **how many requests go over the network, how big they are, and how long the user waits**. So interviewers often ask about them together with the URL question.
+
+```
+        CLIENT SIDE                    NETWORK                    SERVER SIDE
+   (user's browser/device)     (the part between them)    (your machines / cloud)
+ ┌──────────────────────┐   DNS · TCP · TLS · HTTP   ┌────────────────────────────┐
+ │ HTML/CSS/JS, React   │ ◀────────────────────────▶ │ Node/Express, APIs, auth   │
+ │ DOM, events, storage │   requests & responses     │ business logic, DB, Redis  │
+ │ fetch(), cookies     │   CDN · LB · proxies       │ SSR, file storage, queues  │
+ └──────────────────────┘                            └────────────────────────────┘
+   Untrusted · user can          Can be slow,            Trusted · you control it
+   see & change everything       fail, be watched        secrets live here
+```
+
+> 🎤 **Say it like this:** "Client-side means code running in the user's browser — UI, events, rendering, local storage. Server-side means code on our servers — APIs, business logic, database, secrets. Networking is the layer in between — DNS, TCP, TLS and HTTP — that carries requests and responses. They aren't networking themselves, but deciding what runs where changes the network traffic: number of round trips, payload size, caching and time to first byte. And security-wise the client is never trusted, so validation and auth must always be on the server."
+
+### Who does what
+
+| Concern | Client side | Server side | Networking part involved |
+|---|---|---|---|
+| Rendering HTML | CSR (React in browser) | SSR / SSG | Size of HTML vs JS bundle, TTFB |
+| Validation | UX only (fast feedback) | **Must** be here — the real check | Bad input still reaches the server |
+| Auth | Holds cookie/token | Verifies session/JWT, permissions | Cookies, `Authorization` header, CORS |
+| Routing | SPA router (no reload) | URL → handler, redirects (301/302) | Full page request vs `fetch` for data |
+| Caching | HTTP cache, Service Worker, localStorage | Redis, CDN, DB query cache | `Cache-Control`, `ETag`, 304 |
+| Secrets (API keys, DB passwords) | ❌ never | ✅ only here | Anything sent to the client is public |
+| State | UI state, form state | Sessions, DB | Cookies carry session IDs |
+
+Other "sides" you'll hear about:
+- **Edge side** — code running on CDN servers close to the user (Cloudflare Workers, Lambda@Edge, Vercel Edge). Like server side, but much closer → fewer milliseconds per round trip. Good for redirects, auth checks, A/B tests, geo-routing.
+- **Database side** — stored procedures, triggers; one more network hop from the app server.
+- **Third-party side** — analytics, payment gateways, auth providers (OAuth) → extra domains = extra DNS + TCP + TLS.
+
+### Rendering strategies — how each one changes the flow
+
+This is where client vs server matters most for networking, because it changes steps ⑦–⑩ above.
+
+**1. CSR — Client-Side Rendering (React SPA, Vite)**
+```
+Browser ──GET /──────────────▶ Server/CDN
+        ◀── tiny HTML (<div id="root">) + <script src="app.js">
+        ──GET app.js (big) ──▶
+        ◀── JS bundle
+        [run JS → blank until now]
+        ──GET /api/products ─▶ API
+        ◀── JSON
+        [React renders → user finally sees content]
+```
+- ✅ Cheap static hosting, fast navigation after first load, rich interactivity.
+- ❌ Slow first paint (several round trips in a row: HTML → JS → API), weak SEO, big bundles on slow phones.
+
+**2. SSR — Server-Side Rendering (Next.js, Nuxt, Express + templates)**
+```
+Browser ──GET /products ─────▶ Server
+                               [fetch data from DB → build full HTML]
+        ◀── full HTML with content (user sees it now)
+        ──GET app.js ────────▶
+        ◀── JS → "hydration" makes the page interactive
+```
+- ✅ Fast first content, good SEO, data fetched close to the DB (server ↔ DB is fast inside the VPC).
+- ❌ Higher TTFB (server does work per request), more server load, page visible but not clickable until hydration finishes.
+
+**3. SSG — Static Site Generation (Next.js `getStaticProps`, Astro, Hugo)**
+- HTML built **once at build time** → served from **CDN edge**.
+- ✅ Fastest TTFB, cheapest, very cacheable. ❌ Content stale until the next build; not for per-user pages.
+
+**4. ISR — Incremental Static Regeneration** (Next.js `revalidate`)
+- Like SSG, but the CDN/server rebuilds a page in the background after N seconds (`stale-while-revalidate` idea).
+
+**5. Streaming SSR / React Server Components**
+- Server sends HTML **in chunks** as data becomes ready (`Transfer-Encoding: chunked` / HTTP/2 streams), so the user sees the layout immediately and slow parts fill in later.
+
+| | CSR | SSR | SSG | ISR |
+|---|---|---|---|---|
+| HTML built | In browser | On server, every request | At build time | At build + in background |
+| First content | Slow | Fast | Fastest | Fastest |
+| TTFB | Fast (static file) | Slower | Fastest (CDN) | Fastest (CDN) |
+| SEO | Weak | Good | Good | Good |
+| Server load | Low | High | ~None | Low |
+| Best for | Dashboards, admin panels, logged-in apps | Personalised/dynamic public pages, e-commerce | Blogs, docs, marketing pages | Product/catalogue pages that change sometimes |
+
+### Client-side vs server-side redirects (common follow-up)
+
+| | Server-side redirect | Client-side redirect |
+|---|---|---|
+| How | `301`/`302`/`307`/`308` + `Location` header | `window.location = …` or `<meta http-equiv="refresh">` |
+| Network cost | One short response, browser follows | Full page + JS must load first, then a new request |
+| SEO | ✅ Search engines understand it | ❌ Weaker |
+| Use | Domain moves, http→https, login redirects | Only after something happens in the UI |
+
+---
+
 ## Variant: HTTP/3 over QUIC
 
 If the server advertised HTTP/3 (via `Alt-Svc: h3=":443"` header or a DNS HTTPS record):
@@ -394,6 +488,9 @@ Chrome: `chrome://net-internals/#dns` (DNS cache), `chrome://net-internals/#hsts
 - TLS is often terminated at CDN/load balancer → `X-Forwarded-*` headers.
 - CSS is render-blocking; plain `<script>` is parser-blocking → use `defer`.
 - HTTP/3 = QUIC over UDP, TCP+TLS merged into 1 RTT, no TCP head-of-line blocking.
+- Client-side / server-side = **where code runs**; networking = **how they talk**. Not the same thing, but the choice decides round trips, payload size and TTFB.
+- Never trust the client: validation, auth and secrets live on the server.
+- CSR = empty HTML + JS + API calls (slow first paint). SSR = full HTML per request (fast content, higher TTFB). SSG = prebuilt HTML on CDN. ISR = SSG + background refresh.
 
 ## Self-test questions
 
@@ -452,6 +549,27 @@ Chrome: `chrome://net-internals/#dns` (DNS cache), `chrome://net-internals/#hsts
    Usually at the CDN or load balancer (sometimes Nginx). The backend gets plain HTTP or re-encrypted traffic from the proxy, so it reads `X-Forwarded-For` for the client IP and `X-Forwarded-Proto` for the original scheme. In Express, set `trust proxy`.
 
    </details>
+
+9. Are client-side and server-side part of networking?
+   <details><summary>Answer</summary>
+
+   Not directly. They describe where code runs: in the browser or on our servers. Networking is the layer in between (DNS, TCP, TLS, HTTP) that carries requests between them. They are closely linked, though: what runs where decides how many round trips happen, how big the responses are, what can be cached, and the TTFB.
+
+   </details>
+
+10. CSR vs SSR — what's the difference in network requests before the user sees content?
+    <details><summary>Answer</summary>
+
+    CSR: get an almost-empty HTML page → download the JS bundle → run it → call the API for data → render. That's several round trips in a row before anything useful shows. SSR: one request returns HTML that already has the content (the server fetched the data close to the DB), so content shows sooner, but TTFB is higher and the page still needs JS to hydrate before it's interactive.
+
+    </details>
+
+11. Why must validation happen on the server even if the frontend already validates?
+    <details><summary>Answer</summary>
+
+    The client is fully under the user's control. Anyone can skip the UI and send requests straight to the API with curl or Postman, or change the JS in DevTools. Client-side validation is only for UX. The server is the only place where checks can be enforced.
+
+    </details>
 
 ## References
 
