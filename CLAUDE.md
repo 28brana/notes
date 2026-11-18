@@ -5,8 +5,8 @@ The user gives a topic → you create the note (+ Q&A file) and update the index
 Add useful things the user didn't ask for if an interviewer would expect them.
 
 **Gold-standard examples — copy their style:**
-- `system-design/02-scalability.md` (topic note)
-- `system-design/questions/02-scalability-qa.md` (Q&A)
+- `system-design/core-concepts/01-scalability.md` (topic note)
+- `system-design/core-concepts/questions/01-scalability-qa.md` (Q&A)
 
 ---
 
@@ -87,11 +87,12 @@ Don't overdo it: roughly a callout or diagram every section, not every paragraph
 1. Add/update the row in the subject's `README.md` (topic table, status ✅ / 🚧 / 📝).
 2. Add/update the row in `<subject>/questions/README.md`.
 3. Update the note count and folder tree in the root `README.md`.
-4. Link the new note from related notes (e.g. the core-concepts table in `system-design/01-what-is-system-design.md`).
+4. Link the new note from related notes (e.g. the core-concepts table in `system-design/01-what-is-system-design.md`). If it lives in a sub-folder, also update that sub-folder's `README.md` and `questions/README.md`.
 5. Don't commit unless asked. Commit format: `notes(<subject>): add <topic>`.
 
 ## Conventions
 
 - Folders: `kebab-case` per subject, each with `README.md`, `questions/`, `assets/`.
+- A subject can group related notes in a **sub-folder** (e.g. `system-design/core-concepts/`) with its own `README.md` and `questions/`; numbering restarts at `01` inside it.
 - Files: `NN-topic-name.md` — number = reading order.
 - Images go in the subject's `assets/` and are linked relatively.

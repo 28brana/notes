@@ -1,9 +1,9 @@
-# 02 · Scalability
+# 01 · Scalability
 
 > [!info] Topic info
 > **Subject:** System Design · **Priority:** 🔥 High · **Status:** ✅ done · **Last reviewed:** 2026-11-18
 >
-> [← Back to System Design](README.md) · [Interview questions →](questions/02-scalability-qa.md)
+> [← Back to Core Concepts](README.md) · [Interview questions →](questions/01-scalability-qa.md)
 
 > [!abstract] In one line
 > **Scalability** is a system's ability to handle **more load** — more users, more requests, more data — by **adding resources**, while staying fast and reliable.
@@ -103,7 +103,7 @@ flowchart LR
 - **Hard limit** — there is a biggest machine you can buy
 - **Expensive** — price grows faster than power at the top end
 - **Downtime** — upgrading often needs a restart
-- **Single point of failure** — if it dies, everything dies (see [Availability](03-availability.md))
+- **Single point of failure** — if it dies, everything dies (see [Availability](02-availability.md))
 
 > [!tip] 🎤 Say it like this
 > "Vertical scaling is making one machine bigger. It's simple and needs no code changes, so I'd start there. But it has a ceiling and it's a single point of failure, so it doesn't work long term."
@@ -276,7 +276,7 @@ The most important decision is the **shard key** (here `user_id`). A good key:
 > - **Cross-shard queries** — "top 10 posts from everyone" now hits every shard
 > - **Joins & transactions** across shards — painful or impossible
 > - **Hot shards** — one celebrity's shard gets all the traffic
-> - **Rebalancing** — adding a shard means moving data around
+> - **Rebalancing** — adding a shard means moving data around (see [Consistent Hashing](06-consistent-hashing.md) to move as little as possible)
 >
 > That's why sharding is the **last** step, not the first.
 

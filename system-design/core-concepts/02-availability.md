@@ -1,9 +1,9 @@
-# 03 · Availability
+# 02 · Availability
 
 > [!info] Topic info
 > **Subject:** System Design · **Priority:** 🔥 High · **Status:** ✅ done · **Last reviewed:** 2026-11-18
 >
-> [← Back to System Design](README.md) · [Interview questions →](questions/03-availability-qa.md)
+> [← Back to Core Concepts](README.md) · [Interview questions →](questions/02-availability-qa.md)
 
 > [!abstract] In one line
 > **Availability** is the percentage of time a system is **up and answering requests** — and we get it by removing **single points of failure** with **redundancy**, **fast failover**, and **graceful degradation**.
@@ -12,7 +12,7 @@
 
 ## 1. The problem
 
-Our social media app from the [Scalability](02-scalability.md) note now handles **500,000 users**. It's fast. Then one night at 2 AM, the **database server's disk dies**.
+Our social media app from the [Scalability](01-scalability.md) note now handles **500,000 users**. It's fast. Then one night at 2 AM, the **database server's disk dies**.
 
 ```mermaid
 flowchart LR
@@ -65,7 +65,7 @@ Every extra nine = **10x less downtime**, and usually a lot more cost and effort
 >
 > A system can be available but not durable — it's up, but yesterday's posts are gone.
 >
-> More on this in [Reliability](04-reliability.md).
+> More on this in [Reliability](03-reliability.md).
 
 ---
 
@@ -162,7 +162,7 @@ flowchart LR
 
 ## 6. Find the single points of failure
 
-A **single point of failure (SPOF)** is any part that takes down the whole system when it dies.
+A **single point of failure (SPOF)** is any part that takes down the whole system when it dies. Deep dive: [Single Point of Failure](04-single-point-of-failure.md).
 
 Walk through the request path and ask *"what if this dies?"* for every box:
 
@@ -458,7 +458,7 @@ Availability is never free.
 
 - **Cost** — every extra nine roughly needs double the infrastructure and much more engineering.
 - **Complexity** — more moving parts, more ways to fail.
-- **Consistency** — during a network split, you must choose: stay **available** (maybe show stale data) or stay **consistent** (refuse some requests). This is the **CAP theorem**.
+- **Consistency** — during a network split, you must choose: stay **available** (maybe show stale data) or stay **consistent** (refuse some requests). This is the **CAP theorem** — see [CAP Theorem](07-cap-theorem.md).
 
 > [!example] Pick per feature, not per app
 > - 💬 Likes, feed, view counts → **availability** — slightly stale is fine.

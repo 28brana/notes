@@ -1,6 +1,6 @@
 # Q&A · Reliability
 
-[← Back to System Design](../README.md) · [Read the notes →](../04-reliability.md)
+[← Back to Core Concepts](../README.md) · [Read the notes →](../03-reliability.md)
 
 > [!tip] How to use
 > Read the question, answer it **out loud**, then click to open the answer.

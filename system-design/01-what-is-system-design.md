@@ -88,18 +88,22 @@ Every design starts with two kinds of requirements.
 
 ## 5. Core concepts — the vocabulary
 
-These words come up in **every** system design discussion. Each gets its own detailed note.
+These words come up in **every** system design discussion. Each has a detailed note in [Core Concepts](core-concepts/README.md).
 
 | Concept | Simple meaning | Note |
 |---|---|---|
-| **Scalability** | Handle more load by adding resources | [02 →](02-scalability.md) |
-| **Availability** | Is it up and responding? | [03 →](03-availability.md) |
-| **Reliability** | Does it give *correct* results, even when parts fail? | [04 →](04-reliability.md) |
-| **Latency** | How long one request takes | 📝 |
-| **Throughput** | How many requests per second | 📝 |
-| **Consistency** | Does everyone see the latest data? | 📝 |
-| **Fault tolerance** | Keeps working when a part breaks | 📝 |
-| **Durability** | Saved data is never lost | 📝 |
+| **Scalability** | Handle more load by adding resources | [01 →](core-concepts/01-scalability.md) |
+| **Availability** | Is it up and responding? | [02 →](core-concepts/02-availability.md) |
+| **Reliability** | Does it give *correct* results, even when parts fail? | [03 →](core-concepts/03-reliability.md) |
+| **Single point of failure** | One part that takes everything down when it dies | [04 →](core-concepts/04-single-point-of-failure.md) |
+| **Latency / Throughput / Bandwidth** | Time per request / requests per second / max capacity of the pipe | [05 →](core-concepts/05-latency-throughput-bandwidth.md) |
+| **Consistent hashing** | Spread data over servers so adding one moves only a little data | [06 →](core-concepts/06-consistent-hashing.md) |
+| **CAP theorem** | During a network split, pick consistency or availability | [07 →](core-concepts/07-cap-theorem.md) |
+| **Consistency** | Does everyone see the latest data? | [07 →](core-concepts/07-cap-theorem.md) |
+| **Fault tolerance** | Keeps working when a part breaks | [03 →](core-concepts/03-reliability.md) |
+| **Durability** | Saved data is never lost | [03 →](core-concepts/03-reliability.md) |
+
+All of these live in the [Core Concepts](core-concepts/README.md) folder.
 
 ### Quick versions
 

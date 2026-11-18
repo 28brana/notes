@@ -7,6 +7,7 @@ Short answers you can say out loud. 🟢 basic · 🟡 intermediate · 🔴 seni
 | # | Topic | Questions |
 |---|---|---|
 | 01 | [What is System Design](01-what-is-system-design-qa.md) | 12 |
-| 02 | [Scalability](02-scalability-qa.md) | 15 |
-| 03 | [Availability](03-availability-qa.md) | 21 |
-| 04 | [Reliability](04-reliability-qa.md) | 16 |
+
+### 🧱 Core Concepts
+
+See [Core Concepts Q&A →](../core-concepts/questions/README.md) for Scalability, Availability, Reliability, SPOF, Latency/Throughput/Bandwidth, Consistent Hashing and CAP.

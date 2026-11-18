@@ -1,6 +1,6 @@
 # Q&A · Scalability
 
-[← Back to System Design](../README.md) · [Read the notes →](../02-scalability.md)
+[← Back to Core Concepts](../README.md) · [Read the notes →](../01-scalability.md)
 
 > [!tip] How to use
 > Read the question, answer it **out loud**, then click to open the answer.

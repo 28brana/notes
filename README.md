@@ -6,7 +6,7 @@ My personal study notes, organized by subject. Each subject has its own folder w
 
 | Subject | Description | Notes |
 |---|---|---|
-| [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 4 + Q&A |
+| [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 8 + Q&A |
 | [Computer Networks](computer-networks/README.md) | Networking for full stack developers: HTTP, browser, APIs, auth, deployment, debugging | 9 + Q&A |
 
 ## Repository structure
@@ -19,9 +19,10 @@ notes/
 ├── system-design/
 │   ├── README.md              ← subject index + progress
 │   ├── 01-what-is-system-design.md
-│   ├── 02-scalability.md
-│   ├── 03-availability.md
-│   ├── 04-reliability.md
+│   ├── core-concepts/         ← scalability, availability, reliability, SPOF,
+│   │   ├── README.md          ←   latency/throughput, consistent hashing, CAP
+│   │   ├── 01-scalability.md … 07-cap-theorem.md
+│   │   └── questions/         ← Q&A for each core concept
 │   ├── questions/             ← interview Q&A, one file per topic
 │   └── assets/                ← images/diagrams for this subject
 └── computer-networks/

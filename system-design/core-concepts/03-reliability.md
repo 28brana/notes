@@ -1,9 +1,9 @@
-# 04 · Reliability
+# 03 · Reliability
 
 > [!info] Topic info
 > **Subject:** System Design · **Priority:** 🔥 High · **Status:** ✅ done · **Last reviewed:** 2026-11-18
 >
-> [← Back to System Design](README.md) · [Interview questions →](questions/04-reliability-qa.md)
+> [← Back to Core Concepts](README.md) · [Interview questions →](questions/03-reliability-qa.md)
 
 > [!abstract] In one line
 > **Reliability** means the system keeps doing the **right thing** — correct results, no lost or duplicated data — **even when parts fail**. We get it with **fault tolerance**, **idempotent retries**, **safe data handling**, and **guardrails against human mistakes**.
@@ -12,7 +12,7 @@
 
 ## 1. The problem
 
-Our social media app from the [Availability](03-availability.md) note is now **99.99% available**. Multi-AZ, auto failover, circuit breakers. The dashboard is all green. ✅
+Our social media app from the [Availability](02-availability.md) note is now **99.99% available**. Multi-AZ, auto failover, circuit breakers. The dashboard is all green. ✅
 
 But the support inbox tells a different story:
 
@@ -74,7 +74,7 @@ Disks die, RAM gets corrupted, power cuts, network cables get unplugged.
 - A hard disk fails roughly **once every 10–50 years**. Sounds rare.
 - But with **10,000 disks**, that's about **one dead disk per day**.
 
-At scale, hardware failure is **normal**, not an exception. Fix: redundancy (RAID, replicas, multi-AZ) — see [Availability](03-availability.md).
+At scale, hardware failure is **normal**, not an exception. Fix: redundancy (RAID, replicas, multi-AZ) — see [Availability](02-availability.md).
 
 ### 🐛 Software faults
 
@@ -273,7 +273,7 @@ Bugs and bad input can write **wrong** data that looks perfectly fine. Defend at
 Bugs are correlated, so they're the scariest faults. Layers of defence:
 
 - **Testing** — unit, integration, and end-to-end tests in CI. Test the **failure paths** too: timeouts, retries, crashes mid-way.
-- **Canary deploys** — release to 1–5% first, compare error rates, **auto-rollback** if worse. (More in [Availability](03-availability.md), section 13.)
+- **Canary deploys** — release to 1–5% first, compare error rates, **auto-rollback** if worse. (More in [Availability](02-availability.md), section 13.)
 - **Feature flags** — turn off a broken feature in seconds without a redeploy.
 - **Timeouts and limits everywhere** — no request, query, or loop runs forever.
 - **Process supervision** — crashed process? Kubernetes / systemd restarts it automatically.
@@ -307,7 +307,7 @@ You can't stop people from making mistakes. You **can** make mistakes hard to ma
 You can't improve what you don't measure. Uptime alone isn't enough.
 
 - **MTBF** — Mean Time Between Failures. Higher = fails less often.
-- **MTTR** — Mean Time To Recovery. Lower = fixes faster. (Both covered in [Availability](03-availability.md), section 4.)
+- **MTTR** — Mean Time To Recovery. Lower = fixes faster. (Both covered in [Availability](02-availability.md), section 4.)
 - **Error rate** — % of requests returning errors.
 - **Correctness SLIs** — e.g. "% of payments where our record matches the payment provider".
 - **Data loss** — RPO met? Any lost writes?
