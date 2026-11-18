@@ -4,6 +4,9 @@
 
 Short answers you can say out loud. 🟢 basic · 🟡 intermediate · 🔴 senior / scenario
 
+> [!example] 📝 Practice mode
+> Want questions **without** answers? Use the [Practice Questions](practice-questions.md) sheet — all 118 in one place, with checkboxes.
+
 | # | Topic | Questions |
 |---|---|---|
 | 01 | [Scalability](01-scalability-qa.md) | 15 |

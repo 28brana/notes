@@ -1,6 +1,6 @@
 # System Design · Core Concepts
 
-[← Back to System Design](../README.md) · [Interview Q&A →](questions/README.md)
+[← Back to System Design](../README.md) · [Interview Q&A →](questions/README.md) · [Practice questions 📝](questions/practice-questions.md)
 
 The vocabulary behind every system design interview. Read them in order — they follow one social media app as it grows and hits new problems.
 

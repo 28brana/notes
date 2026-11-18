@@ -10,4 +10,4 @@ Short answers you can say out loud. 🟢 basic · 🟡 intermediate · 🔴 seni
 
 ### 🧱 Core Concepts
 
-See [Core Concepts Q&A →](../core-concepts/questions/README.md) for Scalability, Availability, Reliability, SPOF, Latency/Throughput/Bandwidth, Consistent Hashing and CAP.
+See [Core Concepts Q&A →](../core-concepts/questions/README.md) for Scalability, Availability, Reliability, SPOF, Latency/Throughput/Bandwidth, Consistent Hashing and CAP. Questions only, no answers: [Practice Questions 📝](../core-concepts/questions/practice-questions.md).
