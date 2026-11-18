@@ -103,7 +103,7 @@ flowchart LR
 - **Hard limit** — there is a biggest machine you can buy
 - **Expensive** — price grows faster than power at the top end
 - **Downtime** — upgrading often needs a restart
-- **Single point of failure** — if it dies, everything dies
+- **Single point of failure** — if it dies, everything dies (see [Availability](03-availability.md))
 
 > [!tip] 🎤 Say it like this
 > "Vertical scaling is making one machine bigger. It's simple and needs no code changes, so I'd start there. But it has a ceiling and it's a single point of failure, so it doesn't work long term."

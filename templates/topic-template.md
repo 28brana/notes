@@ -1,48 +1,54 @@
-# Topic Title
+# NN · Topic Name
 
-> **Subject:** <!-- e.g. System Design -->  
-> **Status:** 🚧 in progress  
-> **Last reviewed:** YYYY-MM-DD
+> [!info] Topic info
+> **Subject:** <!-- e.g. System Design --> · **Priority:** 🔥 High · **Status:** 🚧 in progress · **Last reviewed:** YYYY-MM-DD
+>
+> [← Back to Subject](README.md) · [Interview questions →](questions/NN-topic-qa.md)
 
-## Overview
+> [!abstract] In one line
+> One-sentence definition with the **key words** in bold.
 
-One or two sentences: what is this and why does it matter?
+---
 
-## Key concepts
+## 1. The problem
 
-### Concept 1
+A relatable scenario (running example) that shows why this topic exists.
 
-Explanation.
+```mermaid
+flowchart LR
+    U[👥 Users] --> S[🖥️ Server]
+```
 
-### Concept 2
+> [!tip] 🎤 Say it like this
+> "2–4 sentences you can say out loud in an interview."
 
-Explanation.
+---
 
-## Diagram
+## 2. Concept / solution
 
-<!-- ![diagram](assets/file-name.png) -->
+Short paragraphs (2–3 lines).
 
-## Examples
+**✅ Pros**
+- …
 
-## Trade-offs / pitfalls
+**❌ Cons**
+- …
 
-| Option | Pros | Cons |
-|---|---|---|
-|  |  |  |
+> [!warning] Trap / trade-off
+> What gets harder.
 
-## Quick revision
+---
 
-- Point 1
-- Point 2
+## Summary
 
-## Interview / self-test questions
+| Step | Fixes this |
+|---|---|
+| **…** | … |
 
-1. Question?
-   <details><summary>Answer</summary>
+> [!success] Key takeaway
+> One or two lines.
 
-   Answer here.
-
-   </details>
+---
 
 ## References
 

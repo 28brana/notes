@@ -93,7 +93,7 @@ These words come up in **every** system design discussion. Each gets its own det
 | Concept | Simple meaning | Note |
 |---|---|---|
 | **Scalability** | Handle more load by adding resources | [02 →](02-scalability.md) |
-| **Availability** | Is it up and responding? | 📝 |
+| **Availability** | Is it up and responding? | [03 →](03-availability.md) |
 | **Reliability** | Does it give *correct* results, even when parts fail? | 📝 |
 | **Latency** | How long one request takes | 📝 |
 | **Throughput** | How many requests per second | 📝 |
