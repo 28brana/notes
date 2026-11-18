@@ -202,9 +202,9 @@ Put a cache (Redis) in front of the DB:
 
 ```mermaid
 flowchart LR
-    APP[🖥️ App] -- 1. check --> C[(⚡ Redis)]
+    APP[🖥️ App] -- 1 check --> C[(⚡ Redis)]
     C -. hit: return fast .-> APP
-    APP -- 2. miss: query --> DB[(🗄️ Database)]
+    APP -- 2 miss: query --> DB[(🗄️ Database)]
     DB -. 3. save in cache .-> C
 ```
 

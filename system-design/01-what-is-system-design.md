@@ -3,7 +3,7 @@
 > [!info] Topic info
 > **Subject:** System Design · **Priority:** 🔥 High · **Status:** ✅ done · **Last reviewed:** 2026-11-18
 >
-> [← Back to System Design](README.md) · [Interview questions →](questions/01-what-is-system-design-qa.md)
+> [← Back to System Design](README.md) · [Interview questions →](questions/01-what-is-system-design-qa.md) · [Next: 30 Must-Know Concepts →](02-must-know-concepts.md)
 
 > [!abstract] In one line
 > System design is deciding **which parts** a system needs, **how they talk to each other**, and **where the data lives**, so it works for users today *and* keeps working when millions of people use it.

@@ -93,6 +93,16 @@ Don't overdo it: roughly a callout or diagram every section, not every paragraph
 ## Conventions
 
 - Folders: `kebab-case` per subject, each with `README.md`, `questions/`, `assets/`.
-- A subject can group related notes in a **sub-folder** (e.g. `system-design/core-concepts/`) with its own `README.md` and `questions/`; numbering restarts at `01` inside it.
+- A subject can group related notes in a **chapter sub-folder** (e.g. `system-design/caching/`) with its own `README.md` and `questions/`; numbering restarts at `01` inside it.
+
+## System Design chapters (short-note format)
+
+`system-design/` follows a chapter roadmap (see its `README.md`). Except `core-concepts/` (long notes, one Q&A per topic), chapters use:
+
+- **Short, interview-focused notes** — High priority ~90–150 lines, Medium ~70–110, Low ~45–80. No padding, no trivia.
+- Info line adds `**Chapter:** <name>` and priority 🔥 High / ⚡ Medium / 💤 Low.
+- **One Q&A file per chapter:** `<chapter>/questions/<chapter>-qa.md`, a `## NN · Topic` heading per topic, questions numbered continuously.
+- **Practice sheet** `<chapter>/questions/practice-questions.md` (questions only, checkboxes) — generated from the Q&A file; regenerate after changing questions.
+- Don't re-explain a topic another note covers — recap in 1–2 lines and link it.
 - Files: `NN-topic-name.md` — number = reading order.
 - Images go in the subject's `assets/` and are linked relatively.

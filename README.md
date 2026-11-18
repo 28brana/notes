@@ -6,7 +6,7 @@ My personal study notes, organized by subject. Each subject has its own folder w
 
 | Subject | Description | Notes |
 |---|---|---|
-| [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 8 + Q&A |
+| [System Design](system-design/README.md) | Designing scalable, reliable distributed systems — 18 chapters | 159 + Q&A |
 | [Computer Networks](computer-networks/README.md) | Networking for full stack developers: HTTP, browser, APIs, auth, deployment, debugging | 9 + Q&A |
 
 ## Repository structure
@@ -17,13 +17,17 @@ notes/
 ├── templates/
 │   └── topic-template.md      ← copy this to start a new note
 ├── system-design/
-│   ├── README.md              ← subject index + progress
+│   ├── README.md              ← chapter index (start here)
 │   ├── 01-what-is-system-design.md
-│   ├── core-concepts/         ← scalability, availability, reliability, SPOF,
-│   │   ├── README.md          ←   latency/throughput, consistent hashing, CAP
-│   │   ├── 01-scalability.md … 07-cap-theorem.md
-│   │   └── questions/         ← Q&A for each core concept
-│   ├── questions/             ← interview Q&A, one file per topic
+│   ├── 02-must-know-concepts.md   ← one-page map of the whole course
+│   ├── core-concepts/         ← scalability, availability, reliability, SPOF, latency, hashing, CAP
+│   ├── networking/  load-balancing/  api-fundamentals/  communication-patterns/
+│   ├── caching/  databases/  database-scaling/  storage-systems/
+│   ├── architectural-patterns/  microservices-patterns/  distributed-systems/
+│   ├── distributed-transactions/  data-structures/  big-data/
+│   ├── deployment/  observability/  security/
+│   │   └── (each chapter: README.md, NN-topic.md notes, questions/ with Q&A + practice sheet)
+│   ├── questions/             ← Q&A index for all chapters
 │   └── assets/                ← images/diagrams for this subject
 └── computer-networks/
     ├── README.md

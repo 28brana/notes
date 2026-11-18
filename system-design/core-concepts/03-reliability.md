@@ -105,11 +105,11 @@ From the client's side, all three look **the same**: a timeout. So the client re
 
 ```mermaid
 flowchart LR
-    U[📱 App] -- 1. POST /posts --> API[🖥️ API]
-    API -- 2. saved --> DB[(🗄️ DB)]
+    U[📱 App] -- 1 POST /posts --> API[🖥️ API]
+    API -- 2 saved --> DB[(🗄️ DB)]
     API -. 3. reply lost .-> U
-    U -- 4. retry POST /posts --> API
-    API -- 5. saved again --> DB
+    U -- 4 retry POST /posts --> API
+    API -- 5 saved again --> DB
 ```
 
 That's exactly our **"post appeared three times"** bug — and the **double charge**.
