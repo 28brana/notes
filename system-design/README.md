@@ -11,6 +11,7 @@ Notes on designing scalable, reliable, maintainable distributed systems. Written
 | 01 | [What is System Design](01-what-is-system-design.md) | ✅ |
 | 02 | [Scalability](02-scalability.md) | ✅ |
 | 03 | [Availability](03-availability.md) | ✅ |
+| 04 | [Reliability](04-reliability.md) | ✅ |
 
 ## Resources
 

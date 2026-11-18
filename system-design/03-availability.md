@@ -64,6 +64,8 @@ Every extra nine = **10x less downtime**, and usually a lot more cost and effort
 > - **Durable** = data you saved is **never lost**.
 >
 > A system can be available but not durable — it's up, but yesterday's posts are gone.
+>
+> More on this in [Reliability](04-reliability.md).
 
 ---
 
