@@ -1,22 +1,18 @@
 # System Design
 
-[← Back to all subjects](../README.md)
+[← Back to all subjects](../README.md) · [Interview Q&A →](questions/README.md)
 
-Notes on designing scalable, reliable, maintainable distributed systems.
+Notes on designing scalable, reliable, maintainable distributed systems. Written in simple, "explain it to the interviewer" English — look for the 🎤 **Say it like this** lines.
 
 ## Topics
 
 | # | Topic | Status |
 |---|---|---|
-| 01 | [Fundamentals](01-fundamentals.md) | ✅ |
-| 02 | Load Balancing | 📝 |
-| 03 | Caching | 📝 |
-| 04 | Databases: SQL vs NoSQL, Replication, Sharding | 📝 |
-| 05 | Message Queues & Async Processing | 📝 |
-| 06 | CAP Theorem & Consistency Models | 📝 |
-| 07 | Case Study: URL Shortener | 📝 |
+| 01 | [What is System Design](01-what-is-system-design.md) | ✅ |
+| 02 | [Scalability](02-scalability.md) | ✅ |
 
 ## Resources
 
 - *Designing Data-Intensive Applications* — Martin Kleppmann
+- *System Design Interview* — Alex Xu (Vol. 1 & 2)
 - [System Design Primer](https://github.com/donnemartin/system-design-primer)

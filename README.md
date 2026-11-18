@@ -6,7 +6,7 @@ My personal study notes, organized by subject. Each subject has its own folder w
 
 | Subject | Description | Notes |
 |---|---|---|
-| [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 1 |
+| [System Design](system-design/README.md) | Designing scalable, reliable distributed systems | 2 + Q&A |
 | [Computer Networks](computer-networks/README.md) | Networking for full stack developers: HTTP, browser, APIs, auth, deployment, debugging | 9 + Q&A |
 
 ## Repository structure
@@ -18,7 +18,9 @@ notes/
 │   └── topic-template.md      ← copy this to start a new note
 ├── system-design/
 │   ├── README.md              ← subject index + progress
-│   ├── 01-fundamentals.md
+│   ├── 01-what-is-system-design.md
+│   ├── 02-scalability.md
+│   ├── questions/             ← interview Q&A, one file per topic
 │   └── assets/                ← images/diagrams for this subject
 └── computer-networks/
     ├── README.md
