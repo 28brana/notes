@@ -219,7 +219,7 @@ flowchart LR
 | **Good for** | Databases (one writer) | Stateless app servers, caches, reads |
 
 > [!warning] Leave headroom
-> With 3 active nodes each at 80% CPU, losing one puts **120%** load on the other two — and they fall over too. That's a **cascading failure**. Plan for **N+1**: enough capacity to survive losing one node.
+> With 3 active nodes each at 80% CPU, losing one puts **120%** load on the other two — and they fall over too. That's a **cascading failure** (more in section 11). Plan for **N+1**: enough capacity to survive losing one node.
 
 ---
 
@@ -317,11 +317,77 @@ flowchart LR
 
 ---
 
-## 11. Graceful degradation — fail small, not big
+## 11. Cascading failures — when one failure spreads
+
+Redundancy protects us when **one** part dies. But the scariest outages start small and **spread**: one part fails, its load or slowness gets pushed onto the next part, which fails too. Like dominoes.
+
+```mermaid
+flowchart LR
+    A[🐢 Recommendations<br/>gets slow] --> B[🖥️ Feed API threads<br/>all stuck waiting]
+    B --> C[⚖️ LB marks Feed<br/>servers unhealthy]
+    C --> D[🖥️ Remaining servers<br/>get all traffic]
+    D --> E[💥 Whole app down]
+```
+
+A **cascading failure** = a failure that grows by feeding on itself. The first problem is often tiny; the **reaction** of the rest of the system is what kills you.
+
+> [!tip] 🎤 Say it like this
+> "A cascading failure is when one small failure spreads — a slow service ties up threads in its callers, retries multiply the load, overloaded servers crash and push traffic to the next ones. Redundancy alone doesn't stop it; you need timeouts, load shedding, and limits on retries."
+
+### How failures spread
+
+**1. Overload moves to the survivors**
+
+3 servers at 80% CPU. One dies → the other two get **120%** each → they crash → the last one gets everything. The same happens between **regions**: one region fails over to another that's too small for double traffic.
+
+**2. A slow dependency exhausts resources**
+
+Slow is **worse than dead**. A dead service fails fast; a slow one holds your threads and connections.
+
+- Feed API has **200 threads**. Normal call = 50 ms → it can handle **~4,000 req/s**.
+- Recommendations slows to **5 s** → the same 200 threads handle only **~40 req/s**.
+- Requests queue up, memory grows, health checks time out → the Feed API dies **even though it has no bug**.
+
+**3. Retry storms**
+
+Every layer retries "to be safe". The browser retries 3x, the API retries 3x, the service retries 3x → one user click becomes **27 calls** to an already struggling database.
+
+**4. Cache stampede (thundering herd)**
+
+Redis restarts and comes back **empty**. Or a hot key (the homepage feed) expires. Suddenly **every** request misses the cache and hits the database at once. The DB was sized for 20% of traffic and now gets 100% → it falls over.
+
+**5. Death spiral on recovery**
+
+A crashed server restarts and the load balancer sends it **full traffic immediately**. Its cache is cold, connections aren't warmed up → it crashes again. Servers keep flapping up and down and the system never recovers.
+
+**6. Shared dependency fails**
+
+Everything quietly depends on one thing: auth service, config service, DNS, a logging agent that fills the disk. When it fails, **all** services fail together — your redundancy didn't help because every copy had the same dependency.
+
+### How to stop the spread
+
+| Cause | Fix |
+|---|---|
+| **Overload moves to survivors** | N+1 headroom (keep nodes under ~60–70%), auto-scaling, **load shedding** — reject extra requests fast with 503 |
+| **Slow dependency** | **Timeouts**, **circuit breakers**, **bulkheads** (separate pools per dependency) |
+| **Retry storms** | Retry at **one layer only**, exponential backoff + jitter, a **retry budget** (e.g. retries ≤ 10% of traffic) |
+| **Cache stampede** | **Request coalescing** (only one request rebuilds a key, others wait), random **TTL jitter** so keys don't expire together, **cache warming** before traffic |
+| **Death spiral** | **Slow start** — LB ramps traffic to a new server gradually; queue limits; restart in batches |
+| **Shared dependency** | Find it, make it redundant, **cache** its answers (e.g. config, auth tokens) so you survive it being down for a while |
+
+> [!warning] Health checks can make it worse
+> If `/health` checks the database, a slow DB makes **every** app server "unhealthy" at once, and the LB removes them all — total outage. Keep **liveness** checks shallow (is the process OK?), and don't let one shared dependency fail every health check.
+
+> [!important] Golden rule
+> **Fail fast, and protect yourself under load.** A system that rejects 10% of requests quickly stays up. A system that tries to serve 100% slowly goes down for everyone.
+
+---
+
+## 12. Graceful degradation — fail small, not big
 
 Not every failure needs a backup server. Sometimes the best move is to **keep the core working** and turn off the extras.
 
-Our feed calls a **recommendations service**. It gets slow. Without protection, every feed request waits 30 s, threads pile up, and the **whole app** goes down because of one non-critical feature.
+Back to our slow **recommendations service** from section 11. Without protection, every feed request waits 30 s, threads pile up, and the **whole app** goes down because of one non-critical feature.
 
 Tools to stop this:
 
@@ -349,7 +415,7 @@ flowchart LR
 
 ---
 
-## 12. Safe deployments
+## 13. Safe deployments
 
 Most outages aren't caused by hardware — they're caused by **our own changes**: bad code, bad config, bad migrations.
 
@@ -368,7 +434,7 @@ Most outages aren't caused by hardware — they're caused by **our own changes**
 
 ---
 
-## 13. Monitoring and incident response
+## 14. Monitoring and incident response
 
 You can't fix what you don't see. Good monitoring cuts **MTTR** more than anything else.
 
@@ -384,7 +450,7 @@ When something breaks: **mitigate first** (roll back, fail over), **debug later*
 
 ---
 
-## 14. The trade-offs
+## 15. The trade-offs
 
 Availability is never free.
 
@@ -414,12 +480,13 @@ Availability is never free.
 | 4️⃣ Health checks + auto failover | Slow, manual recovery (high MTTR) |
 | 5️⃣ DB standby + backups (RPO/RTO) | Losing the database or its data |
 | 6️⃣ Multi-AZ / multi-region | A whole data center or region failing |
-| 7️⃣ Timeouts, circuit breakers, fallbacks | One slow dependency causing a cascade |
-| 8️⃣ Canary / blue-green deploys | Our own changes breaking prod |
-| 9️⃣ Monitoring + alerts + chaos testing | Not noticing, or noticing too late |
+| 7️⃣ Load shedding, retry budgets, slow start | Cascading failures — one failure spreading |
+| 8️⃣ Timeouts, circuit breakers, fallbacks | One slow dependency taking down the app |
+| 9️⃣ Canary / blue-green deploys | Our own changes breaking prod |
+| 🔟 Monitoring + alerts + chaos testing | Not noticing, or noticing too late |
 
 > [!success] Key takeaway
-> **Assume everything fails.** Remove single points of failure, detect problems fast, recover automatically, and degrade gracefully.
+> **Assume everything fails.** Remove single points of failure, detect problems fast, recover automatically, stop failures from spreading, and degrade gracefully.
 > Pick the number of nines the business actually needs — every extra nine costs much more.
 
 ---
@@ -431,3 +498,4 @@ Availability is never free.
 - [Google SRE Book — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
 - *Designing Data-Intensive Applications* — Ch. 1, 5, 8
 - *Release It!* — Michael Nygard (stability patterns: circuit breaker, bulkhead)
+- [Google SRE Book — Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/)

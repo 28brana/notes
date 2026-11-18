@@ -41,17 +41,32 @@
 > [!question]- 🟡 Q11. How does a circuit breaker improve availability?
 > It watches calls to a dependency. After too many failures it "opens" and fails fast for a while, instead of letting every request hang on timeouts. That frees threads, gives the dependency time to recover, and lets us return a fallback.
 
-> [!question]- 🔴 Q12. What is split brain and how do you prevent it?
+> [!question]- 🟡 Q12. What is a cascading failure?
+> A small failure that spreads: one part fails, and its load or slowness moves onto other parts until they fail too. Common causes are overload moving to surviving servers, a slow dependency using up all threads, retry storms, and cache stampedes. The first failure is small; the system's reaction is what causes the big outage.
+
+> [!question]- 🟡 Q13. Why is a slow service often worse than a dead one?
+> A dead service fails fast, so callers get an error and move on. A slow one holds callers' threads and connections — 200 threads at 5 s each handle only 40 req/s instead of 4,000. The caller runs out of resources and dies too. Timeouts and circuit breakers turn "slow" back into "fail fast".
+
+> [!question]- 🔴 Q14. What is split brain and how do you prevent it?
 > A network partition makes the standby think the primary is dead, so it promotes itself while the old primary is still accepting writes — now two primaries, and data diverges. Prevent it with a quorum (majority of 3+ nodes elects the leader) and fencing (cut off the old primary before promoting the new one).
 
-> [!question]- 🔴 Q13. We have 3 app servers at 80% CPU. One crashes and soon all three are down. Why?
+> [!question]- 🔴 Q15. We have 3 app servers at 80% CPU. One crashes and soon all three are down. Why?
 > Cascading failure: the dead server's load moves to the other two, pushing them to ~120% of their capacity, so they crash too. Fix: keep N+1 headroom (each node under ~60%), auto-scale, and use load shedding so overloaded servers reject extra requests fast instead of dying.
 
-> [!question]- 🔴 Q14. The recommendations service is slow and now the whole app is down. How would you have prevented this?
+> [!question]- 🔴 Q16. The recommendations service is slow and now the whole app is down. How would you have prevented this?
 > One non-critical dependency used up all threads. I'd add timeouts on the call, a circuit breaker, a fallback like "trending posts", and a bulkhead — a separate connection pool — so recommendations can never starve the core feed. Retries only with backoff and jitter, to avoid a retry storm.
 
-> [!question]- 🔴 Q15. Design for 99.99% availability. What do you put in place?
+> [!question]- 🔴 Q17. Redis restarted and a minute later the database went down. What happened and how do you prevent it?
+> Cache stampede: Redis came back empty, so every request missed and hit the DB at once — sized for 20% of traffic, it got 100%. Prevent it with request coalescing (one request rebuilds a key, others wait), TTL jitter so keys don't expire together, warming the cache before taking traffic, Redis replicas so a restart isn't a cold start, and rate limiting DB access.
+
+> [!question]- 🔴 Q18. How do retries cause outages, and how do you retry safely?
+> Retries at every layer multiply — 3 layers × 3 retries = 27 calls per user click, all hitting a service that's already struggling. Retry at one layer only, use exponential backoff with jitter, cap retries with a retry budget (e.g. ≤ 10% extra traffic), stop retrying when the circuit breaker is open, and only retry idempotent operations.
+
+> [!question]- 🔴 Q19. A crashed server keeps restarting and crashing again. Why?
+> A death spiral: as soon as it's healthy the load balancer sends it full traffic, but its cache is cold and connections aren't warm, so it's overloaded and crashes again. Fix with slow start (ramp traffic up gradually), warm-up before marking it ready, and load shedding so it rejects extra requests instead of dying.
+
+> [!question]- 🔴 Q20. Design for 99.99% availability. What do you put in place?
 > No single points of failure: stateless app servers across multiple AZs behind a redundant load balancer, a database with a sync or semi-sync standby in another AZ and automatic failover, replicated cache. Then timeouts, circuit breakers and graceful degradation, canary deploys with auto-rollback, and alerts on user-facing error rates so MTTR is minutes. 4 minutes a month leaves no room for manual recovery — everything must be automatic.
 
-> [!question]- 🔴 Q16. Would you choose availability or consistency?
+> [!question]- 🔴 Q21. Would you choose availability or consistency?
 > It depends on the feature. During a network split, likes, feeds and view counts should stay available even if slightly stale. Payments and balances should stay consistent — better to show "try again" than double-charge. That's the CAP trade-off, and I decide it per feature, not for the whole app.
