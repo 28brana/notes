@@ -8,6 +8,7 @@ My personal study notes, organized by subject. Each subject has its own folder w
 |---|---|---|
 | [System Design](system-design/README.md) | Designing scalable, reliable distributed systems — 18 chapters | 159 + Q&A |
 | [Computer Networks](computer-networks/README.md) | Networking for full stack developers: HTTP, browser, APIs, auth, deployment, debugging | 9 + Q&A |
+| [DSA](dsa/README.md) | LeetCode practice list (questions only), from [LeetCode Patterns](https://seanprashad.com/leetcode-patterns/) | 179 problems |
 
 ## Repository structure
 
@@ -29,6 +30,8 @@ notes/
 │   │   └── (each chapter: README.md, NN-topic.md notes, questions/ with Q&A + practice sheet)
 │   ├── questions/             ← Q&A index for all chapters
 │   └── assets/                ← images/diagrams for this subject
+├── dsa/
+│   └── README.md          ← 179 LeetCode problems with links + checkboxes
 └── computer-networks/
     ├── README.md
     ├── 01-how-the-internet-works.md … 09-troubleshooting-and-performance.md
