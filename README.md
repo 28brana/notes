@@ -9,6 +9,10 @@ My personal study notes, organized by subject. Each subject has its own folder w
 | [System Design](system-design/README.md) | Designing scalable, reliable distributed systems — 18 chapters | 159 + Q&A |
 | [Computer Networks](computer-networks/README.md) | Networking for full stack developers: HTTP, browser, APIs, auth, deployment, debugging | 9 + Q&A |
 | [DSA](dsa/README.md) | LeetCode practice list (questions only), from [LeetCode Patterns](https://seanprashad.com/leetcode-patterns/) | 179 problems |
+| [DBMS](dbms/README.md) | SQL, data modeling, normalization, transactions, locking, indexing, SQL interview problems | 23 + Q&A |
+| [Infrastructure](infrastructure/README.md) | Linux, Nginx, Docker, Kubernetes, AWS, VPC, Terraform, CI/CD, monitoring, incidents | 24 + Q&A |
+| [Node.js Backend](nodejs-backend/README.md) | Event loop, async, streams, workers, memory + Express, auth, DBs, Redis, jobs, testing, production | 25 + Q&A |
+| [Frontend](frontend/README.md) | Browser rendering, HTML/CSS, JavaScript, TypeScript, web security, React, performance, frontend system design | 25 + Q&A |
 
 ## Repository structure
 
@@ -30,6 +34,8 @@ notes/
 │   │   └── (each chapter: README.md, NN-topic.md notes, questions/ with Q&A + practice sheet)
 │   ├── questions/             ← Q&A index for all chapters
 │   └── assets/                ← images/diagrams for this subject
+├── dbms/  infrastructure/  nodejs-backend/  frontend/
+│   └── (each: README.md, NN-topic.md notes, questions/ with Q&A + practice sheet per part)
 ├── dsa/
 │   └── README.md          ← 179 LeetCode problems with links + checkboxes
 └── computer-networks/

@@ -104,5 +104,7 @@ Don't overdo it: roughly a callout or diagram every section, not every paragraph
 - **One Q&A file per chapter:** `<chapter>/questions/<chapter>-qa.md`, a `## NN · Topic` heading per topic, questions numbered continuously.
 - **Practice sheet** `<chapter>/questions/practice-questions.md` (questions only, checkboxes) — generated from the Q&A file; regenerate after changing questions.
 - Don't re-explain a topic another note covers — recap in 1–2 lines and link it.
+
+`dbms/`, `infrastructure/`, `nodejs-backend/` and `frontend/` use the same short-note format, but flat: notes `NN-topic.md` in the subject folder split into **parts** (see each README), with one Q&A file per part `questions/<part>-qa.md` and a generated `questions/<part>-practice.md`.
 - Files: `NN-topic-name.md` — number = reading order.
 - Images go in the subject's `assets/` and are linked relatively.
